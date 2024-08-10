@@ -1,6 +1,10 @@
-<h1 align="center">Hi 👋, I'm Ankush Rathour</h1>
+<h1 align="center">Hi 👋, I'm Ankush Rathour<br>💡Transforming Ideas 🔁into Efficient Code💻</h1>
 
-<h5 align="center"> I am a Python / Django developer, passionate about software craftsmanship. I focus a lot on clear and maintainable code, long-living architecture, best practices, software development processes, and don’t compromise on quality, the only way to go fast is to go well. I am constantly self-educating and challenging the way I do things.</h5>
+<h5 align="center"> 🐍 Python enthusiast with a passion for crafting web solutions that dazzle and delight. From wrangling code with Django, Flask, or FastAPI to dancing with databases like MySQL, SQLite, MongoDB, and PostgreSQL, I thrive on turning ideas into elegant, efficient realities. With a knack for weaving seamless REST APIs and web services, I love creating connections that bring projects to life.
+
+But it's not just about the backend magic—I'm equally at home sprinkling front-end flair with HTML, CSS, JavaScript, jQuery, and Bootstrap. Whether it's building from scratch or fine-tuning existing systems, I bring a blend of creativity and technical prowess to every challenge.
+
+What sets me apart? A relentless curiosity for exploring new technologies and a knack for seamlessly integrating cloud services and third-party wonders. Let's code a brighter future together!"</h5>
 
 <img align="right" alt="coding" width="400" src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif">
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=ankushrathour&label=Profile%20views&color=0e75b6&style=flat" alt="ankushrathour" /> </p>
