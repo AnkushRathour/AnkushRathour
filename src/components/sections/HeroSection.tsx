@@ -174,7 +174,7 @@ export function HeroSection() {
               {/* Profile image */}
               <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-[var(--surface)] shadow-2xl animate-float">
                 <Image
-                  src="https://ankushrathour.com/assets/img/AnkushRathour.jpeg"
+                  src="/AnkushRathour.jpeg"
                   alt="Ankush Rathour — Software Engineer"
                   fill
                   className="object-cover"
