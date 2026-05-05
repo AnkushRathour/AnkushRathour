@@ -2,8 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: '/AnkushRathour',
-  assetPrefix: '/AnkushRathour/',
+  // basePath: '/AnkushRathour',
+  // assetPrefix: '/AnkushRathour/',
   images: {
     unoptimized: true,
     remotePatterns: [
