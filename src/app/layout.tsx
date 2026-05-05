@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: NAME,
     images: [
       {
-        url: `${SITE_URL}/assets/img/AnkushRathour.jpeg`,
+        url: `${SITE_URL}/AnkushRathour.jpeg`,
         width: 800,
         height: 800,
         alt: `${NAME} — Software Engineer`,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     creator: '@Ankush_Rathour',
-    images: [`${SITE_URL}/assets/img/AnkushRathour.jpeg`],
+    images: [`${SITE_URL}/AnkushRathour.jpeg`],
   },
   alternates: {
     canonical: SITE_URL,
@@ -95,8 +95,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/AnkushRathour.ico" />
+        <link rel="apple-touch-icon" href="/AnkushRathour.png" />
         <Schema />
       </head>
       <body className="noise-overlay">
