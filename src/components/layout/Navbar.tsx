@@ -140,11 +140,11 @@ export function Navbar() {
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a
-          href="https://ankushrathour.com/assets/img/AnkushRathour.jpeg"
+          href="https://ankushrathour.com"
           className="font-display text-lg font-bold text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
         >
           <Image
-            src="https://ankushrathour.com/assets/img/AnkushRathour.jpeg"
+            src="/AnkushRathour.jpeg"
             alt="Ankush Rathour — Software Engineer"
             width={40}
             height={40}
