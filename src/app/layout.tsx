@@ -5,7 +5,7 @@ import { Schema } from '@/components/layout/Schema'
 
 const SITE_URL = 'https://ankushrathour.com'
 const NAME = 'Ankush Rathour'
-const TITLE = 'Ankush Rathour | Software Engineer'
+const TITLE = 'Ankush Rathour - Software Engineer'
 const DESCRIPTION =
   'Ankush Rathour — Software Engineer specializing in architecting scalable full-stack solutions and seamless third-party integrations. Creator of AudioMaker, TalkGenie and ChatPDF, AI-powered tools, and Unified Multimodal AI Agents.'
 export const metadata: Metadata = {
