@@ -96,6 +96,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/AnkushRathour.ico" />
         <link rel="apple-touch-icon" href="/AnkushRathour.png" />
+        <meta name="p:domain_verify" content="0c20c099c09f10fb3e1cc4fdfeae09c2"/>
         <Schema />
       </head>
       <body className="noise-overlay">
