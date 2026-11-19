@@ -1,0 +1,72 @@
+name: Weekly website health check
+
+on:
+  schedule:
+    - cron: '30 7 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'content/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'next.config.mjs'
+      - 'lighthouserc.cjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-health-check
+  cancel-in-progress: true
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      LHCI_MIN_PERFORMANCE: '0.85'
+      LHCI_MIN_ACCESSIBILITY: '0.95'
+      LHCI_MIN_BEST_PRACTICES: '0.95'
+      LHCI_MIN_SEO: '0.95'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbeb163cb91b5f26ed4e279a29564b5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5d92589efcbd18925751fd2bfc52ecaeb
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: TypeScript check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Validate export artifacts
+        run: node .github/scripts/validate-static-export.mjs
+
+      - name: Broken link check (built site)
+        run: npx linkinator http://127.0.0.1:4173 --recurse --serverCmd "npx serve out -l 4173"
+
+      - name: Lighthouse CI (mobile)
+        run: npx lhci autorun --config=./lighthouserc.cjs
+
+      - name: Lighthouse CI (desktop)
+        run: npx lhci autorun --config=./lighthouserc.cjs --collect.settings.preset=desktop
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e62ad5c9b02d1ac3c4e26c25465ab
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          if-no-files-found: ignore

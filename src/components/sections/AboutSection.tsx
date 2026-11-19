@@ -21,7 +21,7 @@ export function AboutSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" ref={ref} className="py-24 md:py-32 relative overflow-hidden">
+    <section id="about" ref={ref} className="py-24 md:py-32 relative overflow-hidden scroll-mt-24">
       {/* Background accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-30" />
 

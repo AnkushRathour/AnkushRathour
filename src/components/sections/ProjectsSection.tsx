@@ -52,7 +52,7 @@ export function ProjectsSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="projects" ref={ref} className="py-24 md:py-32 relative">
+    <section id="projects" ref={ref} className="py-24 md:py-32 relative scroll-mt-24">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div

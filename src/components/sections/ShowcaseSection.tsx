@@ -90,7 +90,7 @@ export function ShowcaseSection() {
     <section
       id="showcase"
       ref={ref}
-      className="py-24 md:py-32 relative overflow-hidden bg-[var(--surface-raised)]"
+      className="py-24 md:py-32 relative overflow-hidden bg-[var(--surface-raised)] scroll-mt-24"
     >
       {/* BG effect */}
       <div className="absolute inset-0">
@@ -125,7 +125,7 @@ export function ShowcaseSection() {
 
         {/* Architecture diagram — step flow */}
         <div className="mb-12">
-          <h3 className="font-mono text-xs text-[var(--ink-faint)] uppercase tracking-widest mb-6">
+          <h3 className="font-mono text-xs text-[var(--ink-muted)] uppercase tracking-widest mb-6">
             System Architecture Flow
           </h3>
 

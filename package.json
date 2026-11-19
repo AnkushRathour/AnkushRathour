@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/sync-engineering-note-pages.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "validate:export": "node .github/scripts/validate-static-export.mjs",
+    "lhci": "lhci autorun"
   },
   "dependencies": {
     "next": "14.2.5",
@@ -14,8 +18,7 @@
     "react-dom": "^18",
     "next-themes": "^0.3.0",
     "framer-motion": "^11.3.19",
-    "lucide-react": "^0.400.0",
-    "@radix-ui/react-tooltip": "^1.1.1"
+    "lucide-react": "^0.400.0"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -26,6 +29,9 @@
     "postcss": "^8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "@lhci/cli": "^0.14.0",
+    "linkinator": "^6.1.2",
+    "serve": "^14.2.4"
   }
 }
