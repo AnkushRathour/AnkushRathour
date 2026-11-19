@@ -25,10 +25,10 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbeb163cb91b5f26ed4e279a29564b5
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@49933ea5d92589efcbd18925751fd2bfc52ecaeb
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
