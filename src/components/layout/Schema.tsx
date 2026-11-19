@@ -68,7 +68,7 @@ export function Schema() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Ankush Rathour — Software Engineer Portfolio',
+    name: 'Ankush Rathour - Software Engineer',
     url: 'https://ankushrathour.com',
     description:
       'Official portfolio of Ankush Rathour, Software Engineer specializing in Python, AI, and Cloud technologies.',

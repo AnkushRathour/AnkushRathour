@@ -1,0 +1,33 @@
+name: Monthly engineering update
+
+on:
+  schedule:
+    - cron: '30 7 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: monthly-engineering-update
+  cancel-in-progress: false
+
+jobs:
+  propose-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbeb163cb91b5f26ed4e279a29564b5
+
+      - name: Install GitHub CLI
+        run: |
+          gh --version || (sudo apt-get update && sudo apt-get install -y gh)
+
+      - name: Generate draft (if meaningful activity exists)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MIN_CHANGES: ${{ vars.ENGINEERING_UPDATE_MIN_CHANGES || '250' }}
+          LOOKBACK_DAYS: ${{ vars.ENGINEERING_UPDATE_LOOKBACK_DAYS || '35' }}
+        run: node .github/scripts/monthly-engineering-update.mjs

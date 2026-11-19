@@ -48,7 +48,7 @@ export function ContactSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="contact" ref={ref} className="py-24 md:py-32 relative overflow-hidden">
+    <section id="contact" ref={ref} className="py-24 md:py-32 relative overflow-hidden scroll-mt-24">
       {/* BG */}
       <div className="absolute inset-0 grid-bg opacity-40" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-20" />

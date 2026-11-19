@@ -1,6 +1,5 @@
-'use client'
-
-import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { NAV_ROUTES, SITE_TITLE } from '@/lib/site'
 
 const SOCIAL_LINKS = [
   {
@@ -96,47 +95,48 @@ export function Footer() {
             <p className="font-display text-2xl font-bold text-[var(--ink)]">
               Ankush Rathour
             </p>
-            <p className="text-sm text-[var(--ink-faint)] mt-1">Software Engineer</p>
+            <p className="text-sm text-[var(--ink-muted)] mt-1">Software Engineer</p>
           </div>
 
           {/* Social links */}
           <div className="flex flex-wrap justify-center gap-2">
             {SOCIAL_LINKS.map(({ label, href, icon }) => (
-              <motion.a
+              <a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
                 title={label}
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-2.5 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--ink-faint)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all duration-200"
+                className="p-2.5 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--ink-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] hover:-translate-y-0.5 transition-all duration-200"
               >
                 {icon}
-              </motion.a>
+              </a>
             ))}
           </div>
 
           {/* Quick links */}
           <nav className="flex flex-wrap justify-center gap-6" aria-label="Footer navigation">
-            {['About', 'Stack', 'Projects', 'Showcase', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-sm text-[var(--ink-faint)] hover:text-[var(--accent)] transition-colors animated-underline"
+            <Link href="/" className="text-sm text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors animated-underline">
+              Home
+            </Link>
+            {NAV_ROUTES.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors animated-underline"
               >
-                {item}
-              </a>
+                {label}
+              </Link>
             ))}
           </nav>
 
           {/* Copyright */}
           <div className="text-center border-t border-[var(--surface-border)] pt-6 w-full">
-            <p className="text-xs text-[var(--ink-faint)]">
-              © {new Date().getFullYear()} Ankush Rathour.
+            <p className="text-xs text-[var(--ink-muted)]">
+              © {new Date().getFullYear()} {SITE_TITLE.split(' - ')[0]}.
             </p>
-            <p className="text-xs text-[var(--ink-faint)] mt-1">
+            <p className="text-xs text-[var(--ink-muted)] mt-1">
               <a
                 href="mailto:ankush.14072000.rathour@gmail.com"
                 className="hover:text-[var(--accent)] transition-colors"

@@ -48,9 +48,9 @@ export function StackSection() {
 
   return (
     <section
-      id="stack"
+      id="tech-stack"
       ref={ref}
-      className="py-24 md:py-32 relative bg-[var(--surface-raised)]"
+      className="py-24 md:py-32 relative bg-[var(--surface-raised)] scroll-mt-24"
     >
       <div className="absolute inset-0 grid-bg opacity-40" />
 

@@ -1,23 +1,23 @@
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { AboutSection } from '@/components/sections/AboutSection'
-import { StackSection } from '@/components/sections/StackSection'
-import { ProjectsSection } from '@/components/sections/ProjectsSection'
-import { ShowcaseSection } from '@/components/sections/ShowcaseSection'
-import { ContactSection } from '@/components/sections/ContactSection'
+import { HomeHighlights } from '@/components/sections/HomeHighlights'
+import { PageShell } from '@/components/layout/PageShell'
+import { homeMetadata } from '@/lib/metadata'
+import { LEGACY_HASH_ROUTES } from '@/lib/site'
+
+export const metadata = homeMetadata
+
+const legacyHashScript = `(() => { if (location.pathname !== '/') return; const hash = location.hash.replace(/^#/, ''); const routes = ${JSON.stringify(LEGACY_HASH_ROUTES)}; if (routes[hash]) location.replace(routes[hash]); })();`
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <StackSection />
-      <ProjectsSection />
-      <ShowcaseSection />
-      <ContactSection />
-      <Footer />
-    </main>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: legacyHashScript }} />
+      <PageShell>
+        <main>
+          <HeroSection />
+          <HomeHighlights />
+        </main>
+      </PageShell>
+    </>
   )
 }

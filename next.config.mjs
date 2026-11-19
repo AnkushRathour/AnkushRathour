@@ -2,8 +2,6 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  // basePath: '/AnkushRathour',
-  // assetPrefix: '/AnkushRathour/',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,6 +10,9 @@ const nextConfig = {
         hostname: 'ankushrathour.com',
       },
     ],
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 };
 
