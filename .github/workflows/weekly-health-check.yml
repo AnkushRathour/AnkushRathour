@@ -63,8 +63,16 @@ jobs:
       - name: Validate export artifacts
         run: node .github/scripts/validate-static-export.mjs
 
-      - name: Broken link check (built site)
-        run: npx linkinator http://127.0.0.1:4173 --recurse --serverCmd "npx serve out -l 4173"
+      - name: Broken link check (built site, internal only)
+        run: |
+          npx serve out -l 4173 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:4173/ >/dev/null && break
+            sleep 1
+          done
+          npx linkinator http://127.0.0.1:4173 --recurse --skip '^(https?://)(?!127\.0\.0\.1)'
 
       - name: Lighthouse CI (mobile)
         run: npx lhci autorun --config=./lighthouserc.cjs

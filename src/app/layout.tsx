@@ -98,7 +98,7 @@ export default function RootLayout({
           fetchPriority="high"
         />
         <link rel="icon" href="/AnkushRathour.ico" />
-        <link rel="apple-touch-icon" href="/AnkushRathour.png" />
+        <link rel="apple-touch-icon" href="/AnkushRathour.jpeg" />
         <meta name="p:domain_verify" content="0c20c099c09f10fb3e1cc4fdfeae09c2" />
         <Schema />
       </head>
