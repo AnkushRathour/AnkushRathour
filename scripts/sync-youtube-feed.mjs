@@ -56,5 +56,17 @@ if (!res.ok) {
 const xml = await res.text()
 const videos = parseRss(xml).slice(0, maxItems)
 
+if (fs.existsSync(outPath)) {
+  try {
+    const prev = JSON.parse(fs.readFileSync(outPath, 'utf8'))
+    if (JSON.stringify(prev.videos) === JSON.stringify(videos)) {
+      console.log(`YouTube feed unchanged (${videos.length} video(s)); skipped write.`)
+      process.exit(0)
+    }
+  } catch {
+    /* overwrite corrupt file */
+  }
+}
+
 fs.writeFileSync(outPath, JSON.stringify({ videos, syncedAt: new Date().toISOString() }, null, 2))
 console.log(`Synced ${videos.length} YouTube video(s).`)

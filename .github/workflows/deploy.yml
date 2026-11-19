@@ -4,9 +4,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    # Weekly rebuild: fresh YouTube RSS + static export (after Monday health check)
-    - cron: '0 8 * * 1'
+  workflow_call:
 
 permissions:
   contents: read
@@ -14,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -56,6 +54,8 @@ jobs:
           mkdir -p out
           if [ -f "CNAME" ]; then
             cp CNAME out/CNAME
+          elif [ -f "public/CNAME" ]; then
+            cp public/CNAME out/CNAME
           else
             echo "ankushrathour.com" > out/CNAME
           fi

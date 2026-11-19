@@ -5,27 +5,48 @@ on:
     - cron: '30 7 1 * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-
 concurrency:
-  group: monthly-engineering-update
+  group: automated-maintenance
   cancel-in-progress: false
 
 jobs:
-  propose-update:
+  generate:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: write
+    outputs:
+      content_updated: ${{ steps.update.outputs.content_updated || 'false' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
-      - name: Generate draft (if meaningful activity exists)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate and commit engineering update
+        id: update
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MIN_CHANGES: ${{ vars.ENGINEERING_UPDATE_MIN_CHANGES || '250' }}
           LOOKBACK_DAYS: ${{ vars.ENGINEERING_UPDATE_LOOKBACK_DAYS || '35' }}
         run: node .github/scripts/monthly-engineering-update.mjs
+
+  deploy:
+    needs: generate
+    if: needs.generate.outputs.content_updated == 'true'
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    secrets: inherit
