@@ -12,6 +12,7 @@ on:
       - 'package-lock.json'
       - 'next.config.mjs'
       - 'lighthouserc.cjs'
+      - '.github/**'
 
 permissions:
   contents: read
@@ -48,8 +49,16 @@ jobs:
       - name: TypeScript check
         run: npm run typecheck
 
-      - name: Build
+      - name: Build (includes prebuild YouTube + engineering note sync)
         run: npm run build
+
+      - name: Verify YouTube sync ran
+        run: |
+          if [ ! -f content/youtube-videos.json ]; then
+            echo "::warning::youtube-videos.json missing — check content/youtube.config.json channelId"
+            exit 0
+          fi
+          node -e "const d=require('./content/youtube-videos.json'); console.log('YouTube videos:', d.videos?.length ?? 0, '| syncedAt:', d.syncedAt);"
 
       - name: Validate export artifacts
         run: node .github/scripts/validate-static-export.mjs

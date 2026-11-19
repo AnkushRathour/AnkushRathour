@@ -6,6 +6,8 @@ type PageMetaInput = {
   description: string
   path: string
   ogType?: 'website' | 'article' | 'profile'
+  /** When the canonical article lives off-site (e.g. Medium) */
+  canonicalUrl?: string
 }
 
 export function createPageMetadata({
@@ -13,8 +15,10 @@ export function createPageMetadata({
   description,
   path,
   ogType = 'website',
+  canonicalUrl,
 }: PageMetaInput): Metadata {
-  const canonical = `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
+  const pageUrl = `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
+  const canonical = canonicalUrl ?? pageUrl
   const isHome = path === '/' || path === ''
   return {
     title: isHome ? { absolute: SITE_TITLE } : title,
@@ -23,7 +27,7 @@ export function createPageMetadata({
     openGraph: {
       type: ogType,
       locale: 'en_US',
-      url: canonical,
+      url: pageUrl,
       title: isHome ? SITE_TITLE : `${title} | ${SITE_NAME}`,
       description,
       siteName: SITE_NAME,

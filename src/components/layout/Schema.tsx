@@ -30,7 +30,7 @@ export function Schema() {
       'https://www.linkedin.com/in/ankush-rathour/',
       'https://github.com/AnkushRathour',
       'https://pypi.org/user/ANKUSHRATHOUR/',
-      'https://medium.com/@ankush.rathour',
+      'https://medium.com/@ankushrathour',
       'https://stackoverflow.com/users/18736053/ankush-rathour',
       'https://www.instagram.com/_ankush_rathour',
       'https://x.com/Ankush_Rathour',

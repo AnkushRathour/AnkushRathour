@@ -9,6 +9,9 @@ export type EngineeringNoteMeta = {
   updatedAt?: string
   tags: string[]
   readingTimeMinutes: number
+  /** Full article hosted elsewhere (e.g. Medium); portfolio page is a summary + link */
+  externalUrl?: string
+  source?: 'medium' | 'external'
 }
 
 const CONTENT_DIR = path.join(process.cwd(), 'content/engineering-notes')
@@ -60,6 +63,8 @@ export function getAllEngineeringNotes(): EngineeringNoteMeta[] {
       readingTimeMinutes: meta.readingTimeMinutes
         ? Number(meta.readingTimeMinutes)
         : estimateReadingTime(body),
+      externalUrl: meta.externalUrl,
+      source: meta.source === 'medium' ? 'medium' : meta.externalUrl ? 'external' : undefined,
     })
   }
 
@@ -88,6 +93,8 @@ export function getEngineeringNoteBySlug(slug: string): {
     readingTimeMinutes: meta.readingTimeMinutes
       ? Number(meta.readingTimeMinutes)
       : estimateReadingTime(body),
+    externalUrl: meta.externalUrl,
+    source: meta.source === 'medium' ? 'medium' : meta.externalUrl ? 'external' : undefined,
   }
 
   return { meta: note, body }

@@ -20,10 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbeb163cb91b5f26ed4e279a29564b5
-
-      - name: Install GitHub CLI
-        run: |
-          gh --version || (sudo apt-get update && sudo apt-get install -y gh)
+        with:
+          fetch-depth: 0
 
       - name: Generate draft (if meaningful activity exists)
         env:

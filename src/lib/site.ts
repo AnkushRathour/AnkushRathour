@@ -1,4 +1,5 @@
 export const SITE_URL = 'https://ankushrathour.com'
+export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@ankush_rathour'
 export const SITE_NAME = 'Ankush Rathour'
 export const SITE_TITLE = 'Ankush Rathour - Software Engineer'
 export const DEFAULT_DESCRIPTION =

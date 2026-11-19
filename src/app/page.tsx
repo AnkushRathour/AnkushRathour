@@ -1,5 +1,6 @@
 import { HeroSection } from '@/components/sections/HeroSection'
 import { HomeHighlights } from '@/components/sections/HomeHighlights'
+import { YoutubeSection } from '@/components/sections/YoutubeSection'
 import { PageShell } from '@/components/layout/PageShell'
 import { homeMetadata } from '@/lib/metadata'
 import { LEGACY_HASH_ROUTES } from '@/lib/site'
@@ -16,6 +17,7 @@ export default function Home() {
         <main>
           <HeroSection />
           <HomeHighlights />
+          <YoutubeSection />
         </main>
       </PageShell>
     </>

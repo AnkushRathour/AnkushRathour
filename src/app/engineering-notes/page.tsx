@@ -7,7 +7,7 @@ import { createPageMetadata } from '@/lib/metadata'
 export const metadata = createPageMetadata({
   title: 'Engineering Notes',
   description:
-    'Technical articles and engineering notes from Ankush Rathour — published from real project work.',
+    'Technical articles and engineering notes from Ankush Rathour.',
   path: '/engineering-notes/',
 })
 
@@ -31,19 +31,9 @@ export default function EngineeringNotesPage() {
             <h1 className="font-display text-4xl md:text-5xl font-bold text-[var(--ink)]">
               Writing from real engineering work
             </h1>
-            <p className="text-[var(--ink-muted)] mt-4 leading-relaxed">
-              Articles appear here when there is verified, shareable technical content — no
-              placeholder posts.
-            </p>
 
             {notes.length === 0 ? (
-              <div className="mt-12 glass rounded-2xl p-8 text-center">
-                <p className="text-[var(--ink-muted)]">
-                  No articles published yet. Add Markdown files under{' '}
-                  <code className="font-mono text-sm text-[var(--accent)]">content/engineering-notes/</code>{' '}
-                  when you are ready.
-                </p>
-              </div>
+              <p className="text-[var(--ink-muted)] mt-6">New articles will appear here.</p>
             ) : (
               <ul className="mt-12 space-y-4">
                 {notes.map((note) => (
@@ -52,9 +42,16 @@ export default function EngineeringNotesPage() {
                       href={`/engineering-notes/${note.slug}/`}
                       className="bento-card glass block rounded-2xl p-6 hover:-translate-y-0.5 transition-transform"
                     >
-                      <h2 className="font-display text-xl font-bold text-[var(--ink)]">
-                        {note.title}
-                      </h2>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h2 className="font-display text-xl font-bold text-[var(--ink)]">
+                          {note.title}
+                        </h2>
+                        {note.source === 'medium' ? (
+                          <span className="text-xs font-mono px-2 py-0.5 rounded-md border border-[var(--surface-border)] text-[var(--accent)]">
+                            Medium
+                          </span>
+                        ) : null}
+                      </div>
                       <p className="text-sm text-[var(--ink-muted)] mt-2">{note.description}</p>
                       <p className="text-xs font-mono text-[var(--ink-faint)] mt-3">
                         {note.publishedAt} · {note.readingTimeMinutes} min read
