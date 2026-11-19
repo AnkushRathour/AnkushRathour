@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { NAV_ROUTES, SITE_TITLE } from '@/lib/site'
+import { NAV_ROUTES, RESUME_PDF_URL, SITE_TITLE } from '@/lib/site'
 
 const SOCIAL_LINKS = [
   {
@@ -129,6 +129,13 @@ export function Footer() {
                 {label}
               </Link>
             ))}
+            <a
+              href={RESUME_PDF_URL}
+              download
+              className="text-sm text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors animated-underline"
+            >
+              Résumé (PDF)
+            </a>
           </nav>
 
           {/* Copyright */}

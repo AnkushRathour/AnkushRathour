@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/sync-engineering-note-pages.mjs && node scripts/sync-youtube-feed.mjs",
+    "prebuild": "node scripts/sync-engineering-note-pages.mjs && node scripts/sync-youtube-feed.mjs && node scripts/generate-engineering-rss.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

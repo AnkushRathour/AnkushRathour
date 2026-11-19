@@ -8,6 +8,7 @@ type PageMetaInput = {
   ogType?: 'website' | 'article' | 'profile'
   /** When the canonical article lives off-site (e.g. Medium) */
   canonicalUrl?: string
+  noIndex?: boolean
 }
 
 export function createPageMetadata({
@@ -16,6 +17,7 @@ export function createPageMetadata({
   path,
   ogType = 'website',
   canonicalUrl,
+  noIndex = false,
 }: PageMetaInput): Metadata {
   const pageUrl = `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
   const canonical = canonicalUrl ?? pageUrl
@@ -47,7 +49,7 @@ export function createPageMetadata({
       creator: '@Ankush_Rathour',
       images: [`${SITE_URL}/AnkushRathour.jpeg`],
     },
-    robots: { index: true, follow: true },
+    robots: noIndex ? { index: false, follow: true } : { index: true, follow: true },
   }
 }
 

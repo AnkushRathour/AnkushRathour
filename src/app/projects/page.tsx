@@ -6,7 +6,7 @@ import { createPageMetadata } from '@/lib/metadata'
 export const metadata = createPageMetadata({
   title: 'Projects',
   description:
-    'Selected projects by Ankush Rathour including AudioMaker, GoogleMapsScraper, and ChatPDF.',
+    'Case studies and flagship projects by Ankush Rathour — AudioMaker, GoogleMapsScraper, and ChatPDF.',
   path: '/projects/',
 })
 

@@ -10,6 +10,8 @@ const REQUIRED_ROUTES = [
   'showcase/index.html',
   'contact/index.html',
   'engineering-notes/index.html',
+  'projects/audiomaker/index.html',
+  'engineering-notes-feed.xml',
   'sitemap.xml',
   'robots.txt',
 ]
@@ -33,6 +35,7 @@ const requiredUrls = [
   'https://ankushrathour.com/showcase/',
   'https://ankushrathour.com/contact/',
   'https://ankushrathour.com/engineering-notes/',
+  'https://ankushrathour.com/projects/audiomaker/',
 ]
 
 for (const url of requiredUrls) {

@@ -8,12 +8,14 @@ const SLUG = 'snowflake-csv-upload-python'
 export const metadata = (() => {
   const article = getEngineeringNoteBySlug(SLUG)
   if (!article) return {}
+  const noIndex = article.meta.tags.includes('release-notes')
   return createPageMetadata({
     title: article.meta.title,
     description: article.meta.description,
     path: `/engineering-notes/${SLUG}/`,
     ogType: 'article',
     canonicalUrl: article.meta.externalUrl,
+    noIndex,
   })
 })()
 

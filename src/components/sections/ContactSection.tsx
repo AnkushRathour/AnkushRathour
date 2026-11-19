@@ -2,7 +2,8 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Mail, MapPin, ExternalLink } from 'lucide-react'
+import { Mail, MapPin, ExternalLink, FileDown } from 'lucide-react'
+import { RESUME_PDF_URL } from '@/lib/site'
 
 const CONTACT_LINKS = [
   {
@@ -87,13 +88,23 @@ export function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-12"
           >
-            <a
-              href="mailto:ankush.14072000.rathour@gmail.com"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[var(--accent)] text-white font-semibold text-lg hover:opacity-90 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300"
-            >
-              <Mail className="w-5 h-5" />
-              Send me an email
-            </a>
+            <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href="mailto:ankush.14072000.rathour@gmail.com"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[var(--accent)] text-white font-semibold text-lg hover:opacity-90 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300"
+              >
+                <Mail className="w-5 h-5" />
+                Send me an email
+              </a>
+              <a
+                href={RESUME_PDF_URL}
+                download
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-[var(--surface-border)] text-[var(--ink-muted)] font-semibold text-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300"
+              >
+                <FileDown className="w-5 h-5" />
+                Résumé (PDF)
+              </a>
+            </div>
           </motion.div>
 
           {/* Location note */}

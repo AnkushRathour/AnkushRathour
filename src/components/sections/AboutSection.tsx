@@ -10,6 +10,12 @@ const EXPERTISE = [
   { area: 'Data & Databases', desc: 'PostgreSQL · MongoDB · Redis · Elasticsearch · Pandas · NumPy' },
 ]
 
+const OUTCOMES = [
+  'Scaled Django/FastAPI backends toward 10M+ requests/day on AWS.',
+  'Shipped PyPI packages (AudioMaker family) for production TTS pipelines.',
+  'Built multimodal AI agents spanning chat, voice synthesis, and telephony.',
+]
+
 const TIMELINE = [
   { year: '2024–Present', role: 'Senior Software Engineer', org: 'AI-focused product company', note: 'Building multimodal AI agents & production ML systems' },
   { year: '2021–2024', role: 'Software Engineer', org: 'SaaS Platform', note: 'Scaled Django/FastAPI backend to 10M+ requests/day on AWS' },
@@ -43,6 +49,20 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16">
           {/* Left — Bio */}
           <div className="space-y-6">
+            <motion.ul
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="space-y-2 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface-raised)] p-5"
+            >
+              {OUTCOMES.map((line) => (
+                <li key={line} className="text-sm text-[var(--ink-muted)] flex gap-2">
+                  <span className="text-[var(--accent)] font-mono">→</span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </motion.ul>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}

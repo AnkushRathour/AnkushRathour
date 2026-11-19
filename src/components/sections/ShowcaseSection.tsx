@@ -1,7 +1,90 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
+import type { ReactNode } from 'react'
 import { useRef } from 'react'
+
+const PY_KEYWORDS = new Set([
+  'async',
+  'await',
+  'def',
+  'return',
+  'if',
+  'import',
+  'from',
+  'True',
+  'False',
+  'None',
+  'and',
+  'or',
+  'not',
+  'in',
+  'else',
+  'elif',
+])
+
+function highlightPythonLine(line: string): ReactNode[] {
+  const nodes: ReactNode[] = []
+  let i = 0
+  let key = 0
+
+  while (i < line.length) {
+    const rest = line.slice(i)
+
+    if (rest[0] === '#') {
+      nodes.push(
+        <span key={key++} className="text-[var(--ink-faint)] opacity-75">
+          {rest}
+        </span>
+      )
+      break
+    }
+
+    const quote = rest[0]
+    if (quote === '"' || quote === "'") {
+      let j = 1
+      while (j < rest.length && rest[j] !== quote) {
+        if (rest[j] === '\\') j += 1
+        j += 1
+      }
+      if (j < rest.length) j += 1
+      nodes.push(
+        <span key={key++} className="text-emerald-300/90">
+          {rest.slice(0, j)}
+        </span>
+      )
+      i += j
+      continue
+    }
+
+    const word = rest.match(/^[A-Za-z_][\w]*/)
+    if (word) {
+      const w = word[0]
+      nodes.push(
+        <span
+          key={key++}
+          className={PY_KEYWORDS.has(w) ? 'text-sky-300/95' : 'text-[var(--ink-muted)]'}
+        >
+          {w}
+        </span>
+      )
+      i += w.length
+      continue
+    }
+
+    nodes.push(
+      <span key={key++} className="text-[var(--ink-muted)]">
+        {rest[0]}
+      </span>
+    )
+    i += 1
+  }
+
+  if (nodes.length === 0) {
+    return [<span key={0}>{'\u00a0'}</span>]
+  }
+  return nodes
+}
 
 const FLOW_STEPS = [
   {
@@ -243,31 +326,24 @@ export function ShowcaseSection() {
             <span className="font-mono text-xs text-[var(--accent)] px-2 py-0.5 rounded-md bg-[var(--accent-muted)]">Python</span>
           </div>
 
-          {/* Code body */}
-          <div className="overflow-x-auto">
-            <pre className="code-block p-5 text-[var(--ink-muted)] leading-6 whitespace-pre">
-              <code>
-                {CODE_SNIPPET.split('\n').map((line, i) => (
-                  <div key={i} className="flex">
-                    <span className="select-none text-[var(--ink-faint)] opacity-40 w-8 text-right mr-4 flex-shrink-0 text-xs">
-                      {i + 1}
-                    </span>
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: line
-                          .replace(/&/g, '&amp;')
-                          .replace(/</g, '&lt;')
-                          .replace(/>/g, '&gt;')
-                          .replace(/(#.*)/g, '<span style="color:var(--ink-faint);opacity:0.7">$1</span>')
-                          .replace(/(".*?")/g, '<span style="color:#86efac">$1</span>')
-                          .replace(/\b(async|await|def|return|if)\b/g, '<span style="color:#93c5fd">$1</span>')
-                          .replace(/\b(await|import)\b/g, '<span style="color:#c4b5fd">$1</span>'),
-                      }}
-                    />
-                  </div>
-                ))}
-              </code>
-            </pre>
+          <div
+            className="code-block overflow-x-auto p-5 text-[0.8rem] leading-7 min-w-0"
+            role="figure"
+            aria-label="Python orchestration example"
+          >
+            {CODE_SNIPPET.split('\n').map((line, i) => (
+              <div key={i} className="flex items-start gap-4 min-w-max">
+                <span
+                  className="select-none tabular-nums text-[var(--ink-faint)] opacity-40 w-6 shrink-0 text-right text-xs leading-7"
+                  aria-hidden
+                >
+                  {i + 1}
+                </span>
+                <code className="whitespace-pre block leading-7">
+                  {highlightPythonLine(line)}
+                </code>
+              </div>
+            ))}
           </div>
         </motion.div>
 

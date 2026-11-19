@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { RESUME_PDF_URL } from '@/lib/site'
 
 const HeroTypewriter = dynamic(() => import('@/components/sections/HeroTypewriter').then((m) => m.HeroTypewriter), {
   ssr: false,
@@ -62,6 +63,13 @@ export function HeroSection() {
               >
                 View Projects
               </Link>
+              <a
+                href={RESUME_PDF_URL}
+                download
+                className="px-6 py-3 rounded-xl border border-[var(--accent)] text-[var(--accent)] text-sm font-semibold hover:bg-[var(--accent-muted)] transition-all duration-200"
+              >
+                Download Résumé
+              </a>
               <Link
                 href="/contact/"
                 className="px-6 py-3 rounded-xl border border-[var(--surface-border)] text-[var(--ink-muted)] text-sm font-semibold hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-200"
