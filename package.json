@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/sync-engineering-note-pages.mjs",
+    "prebuild": "node scripts/sync-engineering-note-pages.mjs && node scripts/sync-youtube-feed.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "sync:youtube": "node scripts/sync-youtube-feed.mjs",
     "validate:export": "node .github/scripts/validate-static-export.mjs",
     "lhci": "lhci autorun"
   },

@@ -35,7 +35,7 @@ const HIGHLIGHTS = [
   {
     title: 'Engineering Notes',
     href: '/engineering-notes/',
-    description: 'Technical articles from real engineering work — published when ready.',
+    description: 'Technical write-ups and selected long-form guides.',
     icon: '06',
   },
 ]
@@ -58,8 +58,7 @@ export function HomeHighlights() {
             Portfolio highlights
           </h2>
           <p className="text-[var(--ink-muted)] mt-3 max-w-2xl">
-            The full single-page experience is now organized into focused pages — same content and
-            design, easier to navigate and index.
+            Explore work, stack, projects, architecture, contact, and engineering notes.
           </p>
         </div>
 

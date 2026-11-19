@@ -10,6 +10,8 @@ type Props = {
 }
 
 export function EngineeringNoteView({ note, body }: Props) {
+  const canonical = note.externalUrl ?? `${SITE_URL}/engineering-notes/${note.slug}/`
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -22,7 +24,10 @@ export function EngineeringNoteView({ note, body }: Props) {
       name: 'Ankush Rathour',
       url: SITE_URL,
     },
-    mainEntityOfPage: `${SITE_URL}/engineering-notes/${note.slug}/`,
+    mainEntityOfPage: canonical,
+    ...(note.externalUrl
+      ? { isBasedOn: note.externalUrl, url: note.externalUrl }
+      : {}),
   }
 
   return (
@@ -55,6 +60,7 @@ export function EngineeringNoteView({ note, body }: Props) {
               {note.updatedAt ? ` · updated ${note.updatedAt}` : ''}
               {' · '}
               {note.readingTimeMinutes} min read
+              {note.source === 'medium' ? ' · Medium' : ''}
             </p>
             {note.tags.length > 0 && (
               <ul className="flex flex-wrap gap-2 mt-4" aria-label="Tags">
@@ -68,14 +74,37 @@ export function EngineeringNoteView({ note, body }: Props) {
                 ))}
               </ul>
             )}
-            <div className="mt-10 glass rounded-2xl p-6 md:p-8">
-              <pre className="code-block whitespace-pre-wrap text-[var(--ink-muted)] leading-relaxed">
-                {body.trim()}
-              </pre>
-            </div>
+            {note.externalUrl ? (
+              <ExternalArticleBlock note={note} body={body} />
+            ) : (
+              <div className="mt-10 glass rounded-2xl p-6 md:p-8">
+                <pre className="code-block whitespace-pre-wrap text-[var(--ink-muted)] leading-relaxed">
+                  {body.trim()}
+                </pre>
+              </div>
+            )}
           </article>
         </main>
       </PageShell>
     </>
+  )
+}
+
+function ExternalArticleBlock({ note, body }: Props) {
+  return (
+    <div className="mt-10 space-y-6">
+      <p className="text-[var(--ink-muted)] leading-relaxed">{note.description}</p>
+      <div className="glass rounded-2xl p-6 md:p-8">
+        <p className="text-[var(--ink-muted)] leading-relaxed whitespace-pre-wrap">{body.trim()}</p>
+      </div>
+      <a
+        href={note.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--accent)] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+      >
+        Read full article on Medium ↗
+      </a>
+    </div>
   )
 }

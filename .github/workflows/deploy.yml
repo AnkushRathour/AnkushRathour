@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Weekly rebuild: fresh YouTube RSS + static export (after Monday health check)
+    - cron: '0 8 * * 1'
 
 permissions:
   contents: read
@@ -11,61 +14,56 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbeb163cb91b5f26ed4e279a29564b5
 
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5d92589efcbd18925751fd2bfc52ecaeb
         with:
-          node-version: "24"
-
-      - name: Detect project root
-        id: detect
-        run: |
-          if [ -f "package.json" ]; then
-            echo "workdir=." >> $GITHUB_OUTPUT
-          elif [ -f "ankush-portfolio/package.json" ]; then
-            echo "workdir=ankush-portfolio" >> $GITHUB_OUTPUT
-          else
-            PKG=$(find . -name "package.json" -not -path "*/node_modules/*" | head -1)
-            DIR=$(dirname "$PKG")
-            echo "workdir=$DIR" >> $GITHUB_OUTPUT
-          fi
+          node-version: '24'
+          cache: npm
 
       - name: Install dependencies
-        working-directory: ${{ steps.detect.outputs.workdir }}
-        run: npm install
+        run: npm ci
 
-      - name: Build
-        working-directory: ${{ steps.detect.outputs.workdir }}
+      - name: Build (prebuild syncs YouTube RSS + engineering note routes)
         run: npm run build
 
+      - name: Verify YouTube sync
+        run: |
+          node -e "
+            const fs = require('fs');
+            if (!fs.existsSync('content/youtube-videos.json')) {
+              console.log('::warning::youtube-videos.json missing — set channelId in content/youtube.config.json');
+              process.exit(0);
+            }
+            const data = JSON.parse(fs.readFileSync('content/youtube-videos.json', 'utf8'));
+            console.log('YouTube entries:', (data.videos || []).length, '| syncedAt:', data.syncedAt || 'n/a');
+          "
+
       - name: Ensure CNAME is in output
-        working-directory: ${{ steps.detect.outputs.workdir }}
         run: |
           mkdir -p out
           if [ -f "CNAME" ]; then
             cp CNAME out/CNAME
-          elif [ -f "../CNAME" ]; then
-            cp ../CNAME out/CNAME
           else
             echo "ankushrathour.com" > out/CNAME
           fi
-          echo "CNAME: $(cat out/CNAME)"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.detect.outputs.workdir }}/out
+          path: ./out
 
   deploy:
     environment:
@@ -73,6 +71,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    timeout-minutes: 10
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

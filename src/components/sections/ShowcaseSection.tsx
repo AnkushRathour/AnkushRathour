@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 const FLOW_STEPS = [
   {
@@ -81,10 +81,15 @@ async def handle_whatsapp_message(payload: WebhookPayload):
     
     return await send_whatsapp_reply(payload, intent.text_response)`
 
+const PIPELINE_METRICS = [
+  { label: 'Stages', value: '5' },
+  { label: 'Integrations', value: 'Twilio · ElevenLabs · LLM' },
+  { label: 'Modes', value: 'Text + Voice' },
+]
+
 export function ShowcaseSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const [activeStep, setActiveStep] = useState(0)
 
   return (
     <section
@@ -123,72 +128,101 @@ export function ShowcaseSection() {
           Twilio SIP Domains, ElevenLabs, and LLM orchestration.
         </motion.p>
 
+        <motion.ul
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="grid sm:grid-cols-3 gap-3 mb-12"
+        >
+          {PIPELINE_METRICS.map(({ label, value }) => (
+            <li key={label} className="glass rounded-xl px-4 py-3 border border-[var(--surface-border)]">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-muted)]">{label}</p>
+              <p className="text-sm font-semibold text-[var(--ink)] mt-1">{value}</p>
+            </li>
+          ))}
+        </motion.ul>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="hidden md:flex items-center justify-between gap-2 mb-10 px-2"
+          aria-hidden="true"
+        >
+          {FLOW_STEPS.map((step, i) => (
+            <div key={step.id} className="flex items-center flex-1 min-w-0 last:flex-none">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center text-sm border-2 shrink-0"
+                style={{ borderColor: step.color, background: `${step.color}18` }}
+                title={step.title}
+              >
+                {step.icon}
+              </div>
+              {i < FLOW_STEPS.length - 1 ? (
+                <div className="h-px flex-1 mx-2 bg-gradient-to-r from-[var(--surface-border)] to-[var(--accent)]/30" />
+              ) : null}
+            </div>
+          ))}
+        </motion.div>
+
         {/* Architecture diagram — step flow */}
         <div className="mb-12">
           <h3 className="font-mono text-xs text-[var(--ink-muted)] uppercase tracking-widest mb-6">
             System Architecture Flow
           </h3>
 
-          {/* Steps */}
-          <div className="space-y-3">
+          <ol className="space-y-4 list-none pl-0 border-l-2 border-[var(--surface-border)] ml-5">
             {FLOW_STEPS.map((step, i) => (
-              <motion.div
+              <motion.li
                 key={step.id}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -16 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                onClick={() => setActiveStep(i === activeStep ? -1 : i)}
-                className={`bento-card rounded-2xl border cursor-pointer transition-all duration-300 relative z-10 ${
-                  activeStep === i
-                    ? 'border-[var(--accent)] bg-[var(--accent-muted)]'
-                    : 'border-[var(--surface-border)] bg-[var(--surface)] hover:border-[var(--accent)]/40'
-                }`}
+                transition={{ duration: 0.45, delay: i * 0.08 }}
+                className="relative pl-8"
               >
-                <div className="p-5 flex items-start gap-4">
-                  {/* Step indicator */}
-                  <div className="flex flex-col items-center gap-2 flex-shrink-0">
+                <span
+                  className="absolute -left-[1.35rem] top-6 w-4 h-4 rounded-full border-2 bg-[var(--surface-raised)]"
+                  style={{ borderColor: step.color }}
+                  aria-hidden="true"
+                />
+                <article
+                  className="bento-card rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] hover:border-[var(--accent)]/40 transition-colors"
+                >
+                  <div className="p-5 flex items-start gap-4">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
                       style={{ background: `${step.color}20` }}
+                      aria-hidden="true"
                     >
                       {step.icon}
                     </div>
-                    {i < FLOW_STEPS.length - 1 && (
-                      <div className="w-px h-4 bg-[var(--surface-border)]" />
-                    )}
-                  </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="font-mono text-xs text-[var(--ink-faint)]">{step.id}</span>
-                      <h3 className="font-semibold text-[var(--ink)] text-sm">{step.title}</h3>
-                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <span className="font-mono text-xs text-[var(--accent)]">{step.id}</span>
+                        <h3 className="font-semibold text-[var(--ink)] text-base">{step.title}</h3>
+                      </div>
 
-                    <p className="text-sm text-[var(--ink-muted)] leading-relaxed">
-                      {step.description}
-                    </p>
+                      <p className="text-sm text-[var(--ink-muted)] leading-relaxed">{step.description}</p>
 
-                    {/* Tech badges */}
-                    <div className="flex flex-wrap gap-1.5 mt-3">
-                      {step.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="text-xs px-2 py-0.5 rounded-md font-mono"
-                          style={{ background: `${step.color}15`, color: step.color }}
-                        >
-                          {t}
-                        </span>
-                      ))}
+                      <ul className="flex flex-wrap gap-1.5 mt-3 list-none p-0" aria-label="Technologies">
+                        {step.tech.map((t) => (
+                          <li key={t}>
+                            <span
+                              className="text-xs px-2 py-0.5 rounded-md font-mono"
+                              style={{ background: `${step.color}15`, color: step.color }}
+                            >
+                              {t}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-
-                  <div className={`flex-shrink-0 text-[var(--ink-faint)] transition-transform ${activeStep === i ? 'rotate-180' : ''}`}>
-                    ↓
-                  </div>
-                </div>
-              </motion.div>
+                </article>
+              </motion.li>
             ))}
-          </div>
+          </ol>
         </div>
 
         {/* Code snippet */}

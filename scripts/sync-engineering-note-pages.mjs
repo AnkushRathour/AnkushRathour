@@ -41,6 +41,7 @@ export const metadata = (() => {
     description: article.meta.description,
     path: \`/engineering-notes/\${SLUG}/\`,
     ogType: 'article',
+    canonicalUrl: article.meta.externalUrl,
   })
 })()
 
