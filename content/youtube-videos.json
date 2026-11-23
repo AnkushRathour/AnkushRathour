@@ -1,6 +1,14 @@
 {
   "videos": [
     {
+      "id": "U64UVaG6U9A",
+      "title": "Proof that endings can be beautiful too 🌅✨ #shorts #vibes #sunset #makeitviral",
+      "publishedAt": "2026-11-23",
+      "url": "https://www.youtube.com/watch?v=U64UVaG6U9A",
+      "thumbnail": "https://i.ytimg.com/vi/U64UVaG6U9A/hqdefault.jpg",
+      "type": "short"
+    },
+    {
       "id": "K5fDXWQBd4Q",
       "title": "You don’t plan वैष्णो देवी, वैष्णो देवी plan’s you😌🫶",
       "publishedAt": "2026-11-16",
@@ -55,15 +63,7 @@
       "url": "https://www.youtube.com/watch?v=AOzNUHbD-Xc",
       "thumbnail": "https://i.ytimg.com/vi/AOzNUHbD-Xc/hqdefault.jpg",
       "type": "video"
-    },
-    {
-      "id": "GSq0j40oqPA",
-      "title": "Chandigarh View From Kasuali",
-      "publishedAt": "2026-10-24",
-      "url": "https://www.youtube.com/watch?v=GSq0j40oqPA",
-      "thumbnail": "https://i.ytimg.com/vi/GSq0j40oqPA/hqdefault.jpg",
-      "type": "video"
     }
   ],
-  "syncedAt": "2026-11-19T08:29:07.135Z"
+  "syncedAt": "2026-11-23T19:26:14.416Z"
 }
